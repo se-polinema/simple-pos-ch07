@@ -22,7 +22,7 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+        if (! Auth::attempt($credentials)) {
             return back()->withErrors([
                 'email' => 'Email atau kata sandi salah.',
             ])->onlyInput('email');
@@ -38,7 +38,7 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard'));
+        return redirect()->intended(route('pos.create'));
     }
 
     public function destroy(Request $request): RedirectResponse
